@@ -1,0 +1,79 @@
+$palette: (
+  'border-grey': rgba(0, 0, 0, 0.06),
+  'grey': rgba(0, 0, 0, 0.4),
+  'slate': rgb(196, 225, 242),
+  'sea': rgb(149, 230, 243),
+  'wood': rgb(139, 97, 44),
+  'sand': rgb(165, 132, 98),
+  'shadow': rgb(92, 42, 14),
+  'traffic-green': rgb(195, 230, 203),
+  'traffic-amber': rgb(255, 238, 186),
+  'traffic-red': rgb(245, 198, 203)
+);
+
+html {
+  background: url(https://i.pinimg.com/736x/9e/11/7e/9e117ee06d8a0d770d3aaac3519ec524--wood-floor-texture-wood-texture-background.jpg);
+  /* background: url(http://ksassets.timeincuk.net/wp/uploads/sites/56/2016/01/FrescoWoodPanelNeutralWallpaperWilko.jpg); */
+  @import url('https://fonts.googleapis.com/css?family=Baloo|Quicksand:400,700');
+}
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  line-height: 1.5em;
+  font-size: 1.1em;
+}
+
+#root {
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 40px 60px;
+  background: #fff;
+}
+
+.posts {
+  padding-left: 0;
+}
+
+.post {
+  list-style: none;
+  
+  &__link {
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    transition: background-color 0.4s;
+    text-decoration: none;
+    color: #000;
+    
+    &:hover {
+      background: map-get($palette, 'sea');
+      color: #fff;
+
+      .post__date {
+        color: #fff;
+        border-right-color: #fff;
+      }
+    }
+  }
+
+  &__date {
+    color: map-get($palette, 'grey');
+    flex: 0 1 auto;
+    margin-right: 1em;
+    padding-right: 1em;
+    border-right: 1px solid map-get($palette, 'border-grey');
+  }
+  &__decision {
+    font-weight: bold;
+    padding: 2px 4px;
+    border-radius: 5px;
+    flex: 0 1 auto;
+  }
+  &__title {
+    flex: 1;
+    margin-right: 1em;
+    padding-right: 1em;
+    /* border-right: 1px solid map-get($palette, 'border-grey'); */
+  }
+}
