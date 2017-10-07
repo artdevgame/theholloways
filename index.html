@@ -1,48 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="description" value="">
-  <meta name="viewport" content="width=device-width">
-  <title>The Holloways</title>
-  <link rel="stylesheet" href="css/index.css">
-</head>
-<body>
-  <div id="root">
-    <h1>The Holloways</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea eveniet, corporis nisi labore ipsa natus. Asperiores nam voluptatibus dolore vel, explicabo cumque recusandae, veritatis placeat et iste rem ipsam mollitia!</p>
+---
+layout: default
+---
+<h1>The Holloways</h1>
+<p>We are Mike & Amy, a Husband and Wife from Worcester UK and this is our shared blog.</p>
 
-    <h2>Past reviews</h2>
-
-    <form>
-      <label>Filter:</label>
-      <select name="filter">
-        <option value="">All</option>
-        <option value="recommended">Recommended</option>
-        <option value="disapproves">Disapproves</option>
-        <option value="split">Split</option>
-      </select>
-      <button>Apply</button>
-    </form>
-
-    <h3>2017</h3>
-    <ul class="posts">
-      <li class="post"><a href="" class="post__link"><span class="post__date">09.09</span> <span class="post__title">Some post about something</span> <span class="post__decision split">Split</span></a></li>
-      <li class="post"><a href="" class="post__link"><span class="post__date">22.07</span> <span class="post__title">Another post about something</span> <span class="post__decision recommended">Recommended</span></a></li>
-      <li class="post"><a href="" class="post__link"><span class="post__date">03.03</span> <span class="post__title">An older post</span> <span class="post__decision recommended">Recommended</span></a></li>
-    </ul>
-
-    <h3>2016</h3>
-    <ul class="posts">
-      <li class="post"><a href="" class="post__link"><span class="post__date">23.12</span> <span class="post__title">Some post about something</span> <span class="post__decision disapproves">Disapproves</span></a></li>
-      <li class="post"><a href="" class="post__link"><span class="post__date">06.07</span> <span class="post__title">Another post about something</span> <span class="post__decision split">Split</span></a></li>
-      <li class="post"><a href="" class="post__link"><span class="post__date">03.07</span> <span class="post__title">An older post</span> <span class="post__decision split">Split</span></a></li>
-    </ul>
-    
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea eveniet, corporis nisi labore ipsa natus. Asperiores nam voluptatibus dolore vel, explicabo cumque recusandae, veritatis placeat et iste rem ipsam mollitia!</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea eveniet, corporis nisi labore ipsa natus. Asperiores nam voluptatibus dolore vel, explicabo cumque recusandae, veritatis placeat et iste rem ipsam mollitia!</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea eveniet, corporis nisi labore ipsa natus. Asperiores nam voluptatibus dolore vel, explicabo cumque recusandae, veritatis placeat et iste rem ipsam mollitia!</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea eveniet, corporis nisi labore ipsa natus. Asperiores nam voluptatibus dolore vel, explicabo cumque recusandae, veritatis placeat et iste rem ipsam mollitia!</p>
-  </div>
-</body>
-</html>
+{% assign year = null %}
+<dl class="posts">
+{% for post in site.data reversed %}
+  {% assign currentYear = post[1].reviewed_on | date: "%Y" %}
+  {% if currentYear != year %}
+    <dt class="year">{{ currentYear }}</dt>
+    {% assign year = currentYear %}
+  {% endif %}
+  {% if post[1].opinions.amy.isRecommended == post[1].opinions.mike.isRecommended %}
+    {% if post[1].opinions.amy.isRecommended %}
+      {% assign decision = "Recommended" %}
+    {% else %}
+      {% assign decision = "Disapproves" %}
+    {% endif %}
+  {% else %}
+    {% assign decision = "Split" %}
+  {% endif %}
+  <dd class="post"><a href="/{{ post[1].slug }}" class="post__link"><span class="post__date">{{ post[1].reviewed_on | date: "%d.%m" }}</span> <span class="post__title">{{ post[1].title }}</span> <span class="post__decision split">{{ decision }}</span></a></dd>
+{% endfor %}
