@@ -1,6 +1,62 @@
 ---
 layout: default
 ---
+{% assign data = site.data[page.data] %}
 
-<h1>{{ page.title }}</h1>
-{{ content }}
+<a href="/">Home</a>
+
+<h1>{{ data.title }}</h1>
+
+<p class="reviewed-on">
+  {% assign day = data.reviewed_on | date: "%-d"  %}
+  {% case day %}
+    {% when '1' or '21' or '31' %}{{ day }}st
+    {% when '2' or '22' %}{{ day }}nd
+    {% when '3' or '23' %}{{ day }}rd
+    {% else %}{{ day }}th
+  {% endcase %}
+  {{ data.reviewed_on | date: "of %B, %Y" }}
+</p>
+
+{% if data.openStreetMap.canvas %}
+<div class="location">
+    <img src="{{ data.openStreetMap.canvas }}" class="location__map" alt="Map showing: {{ data.openStreetMap.name }}" >
+</div>
+{% endif %}
+
+{% if data.media.size > 0 %}
+<dl class="media">
+  <dt class="media__title">Media</dt>
+  {% for media in data.media %}
+    <dd><img src="{{ media.url }}" alt="" class="media__thumbnail"></dd>
+  {% endfor %}
+</dl>
+{% endif %}
+
+<div class="opinion">
+  <h2 class="opinion__title">Amy's opinion:</h2>
+  {% if data.opinions.amy.isRecommended %}
+    <p class="opinion__recommendation">Recommended</p>
+  {% else %}
+    <p class="opinion__recommendation">Disapproves</p>
+  {% endif %}
+  <div class="opinion__message">{{ data.opinions.amy.message }}</div>
+</div>
+
+<div class="opinion">
+  <h2 class="opinion__title">Mike's opinion:</h2>
+  {% if data.opinions.mike.isRecommended %}
+    <p class="opinion__recommendation">Recommended</p>
+  {% else %}
+    <p class="opinion__recommendation">Disapproves</p>
+  {% endif %}
+  <div class="opinion__message">{{ data.opinions.mike.message }}</div>
+</div>
+
+{% if data.tags.size > 0 %}
+<ul class="tags">
+  {% for tag in data.tags %}
+    <li class="tags__tag">{{ tag.text }}</li>
+  {% endfor %}
+</ul>
+{% endif %}

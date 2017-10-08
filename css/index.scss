@@ -46,6 +46,13 @@ body {
   list-style: none;
   margin-left: 0;
   padding-left: 0;
+  margin-bottom: 1em;
+  padding-bottom: 1em;
+  border-bottom: 1px dashed map-get($palette, 'border-grey');
+
+  &:last-child {
+    border-bottom: none;
+  }
   
   &__link {
     display: flex;
@@ -110,5 +117,56 @@ body {
       padding-right: 1em;
       width: auto;
     }
+  }
+}
+
+.location {
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 2em;
+
+  &__map {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -1000px;
+    margin-top: -200px;
+  }
+}
+
+.tags {
+  padding-left: 0;
+  margin: 2em 0;
+  &__tag {
+    display: inline-block;
+    list-style: none;
+    padding: 4px 16px;
+    background: map-get($palette, 'slate');
+    border-radius: 5px;
+  }
+}
+
+.media {
+  &__thumbnail {
+    height: 128px;
+  }
+}
+
+.opinion {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  &__title {
+    flex: 1 0 50%;
+    align-self: flex-end;
+  }
+  &__recommendation {
+    flex: 1 0 50%;
+    align-self: flex-end;
+    text-align: right;
+  }
+  &__message {
+    flex: 0 1 100%;
   }
 }
