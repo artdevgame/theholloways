@@ -7,6 +7,14 @@ services:
       - .:/srv/jekyll
     ports:
       - 4000:4000
-      - 35729:35729
-      - 3000:3000
-      - 80:4000
+    labels:
+      - "traefik.frontend.rule=Host:theholloways.dev"
+      - "traefik.enable=true"
+      - "traefik.docker.network=reverseproxy_default"
+    networks:
+    - "reverseproxy_default"
+
+networks:
+  reverseproxy_default:
+    external:
+      name: reverseproxy_default
